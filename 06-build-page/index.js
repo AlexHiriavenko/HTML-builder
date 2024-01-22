@@ -13,6 +13,7 @@ const distStyle = path.join(dist, 'style.css');
 const distIndexHTML = path.join(dist, 'index.html');
 
 async function buildProject() {
+  await fs.promises.rm(dist, { force: true, recursive: true });
   await fs.promises.mkdir(dist, { recursive: true });
 
   await buildHTML(sourceTemplate, sourceComponents, distIndexHTML);
@@ -67,7 +68,6 @@ async function replaceTemplates(htmlContent, components, sourceComponents) {
 }
 
 async function copyDir(source, dist) {
-  await fs.promises.rm(dist, { force: true, recursive: true });
   await fs.promises.mkdir(dist, { recursive: true });
 
   const sourceContents = await fs.promises.readdir(source, {
